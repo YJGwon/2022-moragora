@@ -48,7 +48,8 @@ class MeetingControllerTest {
                 LocalDate.of(2022, 7, 10),
                 LocalDate.of(2022, 8, 10),
                 LocalTime.of(10, 0),
-                LocalTime.of(18, 0)
+                LocalTime.of(18, 0),
+                List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L)
         );
 
         // when
