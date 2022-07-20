@@ -31,9 +31,9 @@ public class MeetingController {
 
     @PostMapping
     @Master
-    public ResponseEntity<Void> add(@AuthenticationPrincipal final Long masterId,
-                                    @RequestBody @Valid final MeetingRequest request) {
-        final Long id = meetingService.save(request, masterId);
+    public ResponseEntity<Void> add(@RequestBody @Valid final MeetingRequest request,
+                                    @AuthenticationPrincipal final Long loginId) {
+        final Long id = meetingService.save(request, loginId);
         return ResponseEntity.created(URI.create("/meetings/" + id)).build();
     }
 
