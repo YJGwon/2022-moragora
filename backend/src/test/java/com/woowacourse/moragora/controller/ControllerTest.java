@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @WebMvcTest(controllers = {MeetingController.class, UserController.class, AuthController.class})
-@Import({AopAutoConfiguration.class, CustomAspect.class})
+@Import({AopAutoConfiguration.class, CustomAspect.class}) //controller test에서도 aop가 적용되도록 하기 위해 추가
 public class ControllerTest {
 
     @MockBean

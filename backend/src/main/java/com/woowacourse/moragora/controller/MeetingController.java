@@ -30,17 +30,17 @@ public class MeetingController {
     }
 
     @PostMapping
-    @Master
     public ResponseEntity<Void> add(@RequestBody @Valid final MeetingRequest request,
                                     @AuthenticationPrincipal final Long loginId) {
         final Long id = meetingService.save(request, loginId);
         return ResponseEntity.created(URI.create("/meetings/" + id)).build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MeetingResponse> findOne(@PathVariable final Long id,
+    @GetMapping("/{meetingId}")
+    @Master
+    public ResponseEntity<MeetingResponse> findOne(@PathVariable final Long meetingId, //aop 적용을 위한 rename
                                                    @AuthenticationPrincipal final Long loginId) {
-        final MeetingResponse meetingResponse = meetingService.findById(id, loginId);
+        final MeetingResponse meetingResponse = meetingService.findById(meetingId, loginId);
         return ResponseEntity.ok(meetingResponse);
     }
 
