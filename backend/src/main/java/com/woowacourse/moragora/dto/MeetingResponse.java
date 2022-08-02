@@ -3,7 +3,6 @@ package com.woowacourse.moragora.dto;
 import com.woowacourse.moragora.entity.Event;
 import com.woowacourse.moragora.entity.Meeting;
 import com.woowacourse.moragora.entity.MeetingAttendances;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -17,8 +16,6 @@ public class MeetingResponse {
     private final Long id;
     private final String name;
     private final long attendanceCount;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
     private final String entranceTime;
     private final String leaveTime;
     private final Boolean isMaster;
@@ -28,8 +25,6 @@ public class MeetingResponse {
     public MeetingResponse(final Long id,
                            final String name,
                            final long attendanceCount,
-                           final LocalDate startDate,
-                           final LocalDate endDate,
                            final LocalTime entranceTime,
                            final LocalTime leaveTime,
                            final boolean isMaster,
@@ -38,8 +33,6 @@ public class MeetingResponse {
         this.id = id;
         this.name = name;
         this.attendanceCount = attendanceCount;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.entranceTime = entranceTime.format(TIME_FORMATTER);
         this.leaveTime = leaveTime.format(TIME_FORMATTER);
         this.isMaster = isMaster;
@@ -57,8 +50,6 @@ public class MeetingResponse {
                 meeting.getId(),
                 meeting.getName(),
                 attendanceCount,
-                meeting.getStartDate(),
-                meeting.getEndDate(),
                 event.getEntranceTime(),
                 event.getLeaveTime(),
                 isMaster,

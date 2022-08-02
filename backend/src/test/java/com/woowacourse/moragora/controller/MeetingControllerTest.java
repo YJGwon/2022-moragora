@@ -269,12 +269,10 @@ class MeetingControllerTest extends ControllerTest {
         final long id = 1L;
         final String name = "모임1";
         final int attendanceCount = 0;
-        final LocalDate startDate = LocalDate.of(2022, 7, 10);
-        final LocalDate endDate = LocalDate.of(2022, 8, 10);
         final LocalTime entranceTime = LocalTime.of(10, 0);
         final LocalTime leaveTime = LocalTime.of(18, 0);
         final boolean isMaster = true;
-        final MeetingResponse meetingResponse = new MeetingResponse(id, name, attendanceCount, startDate, endDate,
+        final MeetingResponse meetingResponse = new MeetingResponse(id, name, attendanceCount,
                 entranceTime, leaveTime, isMaster, false, participantResponses
         );
 
@@ -290,8 +288,6 @@ class MeetingControllerTest extends ControllerTest {
                 .andExpect(jsonPath("$.id", equalTo(1)))
                 .andExpect(jsonPath("$.name", equalTo("모임1")))
                 .andExpect(jsonPath("$.attendanceCount", equalTo(0)))
-                .andExpect(jsonPath("$.startDate", equalTo("2022-07-10")))
-                .andExpect(jsonPath("$.endDate", equalTo("2022-08-10")))
                 .andExpect(jsonPath("$.entranceTime", equalTo("10:00")))
                 .andExpect(jsonPath("$.leaveTime", equalTo("18:00")))
                 .andExpect(jsonPath("$.isMaster", equalTo(true)))
@@ -307,8 +303,6 @@ class MeetingControllerTest extends ControllerTest {
                                 fieldWithPath("name").type(JsonFieldType.STRING).description(name),
                                 fieldWithPath("attendanceCount").type(JsonFieldType.NUMBER)
                                         .description(attendanceCount),
-                                fieldWithPath("startDate").type(JsonFieldType.STRING).description(startDate),
-                                fieldWithPath("endDate").type(JsonFieldType.STRING).description(endDate),
                                 fieldWithPath("entranceTime").type(JsonFieldType.STRING).description(entranceTime),
                                 fieldWithPath("leaveTime").type(JsonFieldType.STRING).description(leaveTime),
                                 fieldWithPath("isMaster").type(JsonFieldType.BOOLEAN).description(isMaster),
@@ -329,16 +323,12 @@ class MeetingControllerTest extends ControllerTest {
         // given
         final MyMeetingResponse myMeetingResponse =
                 new MyMeetingResponse(1L, "모임1", true,
-                        LocalDate.of(2022, 7, 10),
-                        LocalDate.of(2022, 8, 10),
                         LocalTime.of(10, 0),
                         LocalTime.of(10, 5),
                         1, true, false);
 
         final MyMeetingResponse myMeetingResponse2 =
                 new MyMeetingResponse(2L, "모임2", true,
-                        LocalDate.of(2022, 7, 15),
-                        LocalDate.of(2022, 8, 15),
                         LocalTime.of(9, 0),
                         LocalTime.of(9, 5),
                         2, true, false);
@@ -358,8 +348,6 @@ class MeetingControllerTest extends ControllerTest {
                 .andExpect(jsonPath("$.meetings[*].id", containsInAnyOrder(1, 2)))
                 .andExpect(jsonPath("$.meetings[*].name", containsInAnyOrder("모임1", "모임2")))
                 .andExpect(jsonPath("$.meetings[*].isActive", containsInAnyOrder(true, true)))
-                .andExpect(jsonPath("$.meetings[*].startDate", containsInAnyOrder("2022-07-10", "2022-07-15")))
-                .andExpect(jsonPath("$.meetings[*].endDate", containsInAnyOrder("2022-08-10", "2022-08-15")))
                 .andExpect(jsonPath("$.meetings[*].entranceTime", containsInAnyOrder("09:00", "10:00")))
                 .andExpect(jsonPath("$.meetings[*].closingTime", containsInAnyOrder("09:05", "10:05")))
                 .andExpect(jsonPath("$.meetings[*].tardyCount", containsInAnyOrder(1, 2)))
@@ -370,10 +358,6 @@ class MeetingControllerTest extends ControllerTest {
                                 fieldWithPath("meetings[].id").type(JsonFieldType.NUMBER).description(1L),
                                 fieldWithPath("meetings[].name").type(JsonFieldType.STRING).description("모임1"),
                                 fieldWithPath("meetings[].isActive").type(JsonFieldType.BOOLEAN).description(true),
-                                fieldWithPath("meetings[].startDate").type(JsonFieldType.STRING)
-                                        .description("2022-07-10"),
-                                fieldWithPath("meetings[].endDate").type(JsonFieldType.STRING)
-                                        .description("2022-08-10"),
                                 fieldWithPath("meetings[].entranceTime").type(JsonFieldType.STRING)
                                         .description("09:00"),
                                 fieldWithPath("meetings[].closingTime").type(JsonFieldType.STRING)
