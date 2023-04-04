@@ -16,8 +16,6 @@ spring:
   datasource:
     hikari:
       maximum-pool-size: 5
-  session:
-    store-type: redis
 
 logging:
   level:
