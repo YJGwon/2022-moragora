@@ -43,3 +43,4 @@ out/
 
 ### Rest Docs Resource
 /src/main/resources/static/docs
+/META-INF/MANIFEST.MF
