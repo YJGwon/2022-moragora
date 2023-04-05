@@ -2,7 +2,9 @@ package com.woowacourse.moragora.domain.attendance;
 
 import com.woowacourse.moragora.domain.event.Event;
 import com.woowacourse.moragora.domain.participant.Participant;
+import com.woowacourse.moragora.support.BooleanConverter;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,7 +36,8 @@ public class Attendance {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column(columnDefinition = "BIT default 0")
+    @Convert(converter = BooleanConverter.class)
     private Boolean disabled;
 
     @ManyToOne(fetch = FetchType.LAZY)

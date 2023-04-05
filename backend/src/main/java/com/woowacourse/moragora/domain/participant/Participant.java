@@ -3,7 +3,9 @@ package com.woowacourse.moragora.domain.participant;
 import com.woowacourse.moragora.domain.exception.BusinessException;
 import com.woowacourse.moragora.domain.meeting.Meeting;
 import com.woowacourse.moragora.domain.user.User;
+import com.woowacourse.moragora.support.BooleanConverter;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,7 +34,8 @@ public class Participant {
     @Include
     private Long id;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column(columnDefinition = "BIT default 0")
+    @Convert(converter = BooleanConverter.class)
     private Boolean isMaster;
 
     @ManyToOne(fetch = FetchType.LAZY)
