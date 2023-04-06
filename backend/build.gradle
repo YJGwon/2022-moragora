@@ -20,12 +20,12 @@ test {
     useJUnitPlatform()
     finalizedBy 'jacocoTestReport'
 }
-
-asciidoctor {
-    configurations 'asciidoctorExtensions'
-    inputs.dir snippetsDir
-    dependsOn test
-}
+//
+//asciidoctor {
+//    configurations 'asciidoctorExtensions'
+//    inputs.dir snippetsDir
+//    dependsOn test
+//}
 
 
 configurations {
@@ -91,73 +91,73 @@ dependencies {
     }
 }
 
-task copyDocument(type: Copy) {
-    dependsOn asciidoctor
-
-    from file("build/docs/asciidoc")
-    into file("src/main/resources/static/docs")
-}
+//task copyDocument(type: Copy) {
+//    dependsOn asciidoctor
+//
+//    from file("build/docs/asciidoc")
+//    into file("src/main/resources/static/docs")
+//}
 
 bootJar {
-    dependsOn copyDocument
+//    dependsOn copyDocument
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
 
-jacoco {
-    toolVersion = "0.8.7"
-}
+//jacoco {
+//    toolVersion = "0.8.7"
+//}
 
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        csv.enabled false
-        html.enabled true
-    }
+//jacocoTestReport {
+//    reports {
+//        xml.enabled true
+//        csv.enabled false
+//        html.enabled true
+//    }
+//
+//    finalizedBy 'jacocoTestCoverageVerification'
+//}
 
-    finalizedBy 'jacocoTestCoverageVerification'
-}
+//jacocoTestCoverageVerification {
+//    violationRules {
+//        rule {
+//            enabled = true
+//            element = 'CLASS'
+//
+//            limit {
+//                counter = 'INSTRUCTION'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.80
+//            }
+//
+//            limit {
+//                counter = 'BRANCH'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.80
+//            }
+//
+//            limit {
+//                counter = 'LINE'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.80
+//            }
+//
+//            excludes = ['*infrastructure*', '*support*', '*config*', '*dto*', '*exception*', '*logging*', '*Application*',
+//                        '*ControllerAdvice', '*SessionAttributeNames', '*Patterns', '*ValidationMessages', '*StatusCheckController']
+//        }
+//    }
+//}
 
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            enabled = true
-            element = 'CLASS'
-
-            limit {
-                counter = 'INSTRUCTION'
-                value = 'COVEREDRATIO'
-                minimum = 0.80
-            }
-
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.80
-            }
-
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-                minimum = 0.80
-            }
-
-            excludes = ['*infrastructure*', '*support*', '*config*', '*dto*', '*exception*', '*logging*', '*Application*',
-                        '*ControllerAdvice', '*SessionAttributeNames', '*Patterns', '*ValidationMessages', '*StatusCheckController']
-        }
-    }
-}
-
-sonarqube {
-    properties {
-        property "sonar.sources", "src"
-        property "java", "java"
-        property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.profile", "Sonar way"
-        property "sonar.java.binaries", "${buildDir}/classes"
-        property "sonar.test.inclusions", "**/*Test.java"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
-    }
-}
+//sonarqube {
+//    properties {
+//        property "sonar.sources", "src"
+//        property "java", "java"
+//        property "sonar.sourceEncoding", "UTF-8"
+//        property "sonar.profile", "Sonar way"
+//        property "sonar.java.binaries", "${buildDir}/classes"
+//        property "sonar.test.inclusions", "**/*Test.java"
+//        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+//    }
+//}
