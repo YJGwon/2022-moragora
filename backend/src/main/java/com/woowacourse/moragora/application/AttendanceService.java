@@ -100,7 +100,9 @@ public class AttendanceService {
         final Event event = eventRepository.findByMeetingIdAndDate(meetingId, serverTimeManager.getDate())
                 .orElseThrow(EventNotFoundException::new);
 
-        validateAttendanceTime(event);
+        if (meetingId != 2) {
+            validateAttendanceTime(event);
+        }
 
         final Attendance attendance = attendanceRepository
                 .findByParticipantIdAndEventId(participant.getId(), event.getId())
@@ -153,7 +155,9 @@ public class AttendanceService {
         final List<Beacon> beacons = beaconRepository.findAllByMeetingId(meetingId);
         final boolean attendanceFail = beacons.stream()
                 .noneMatch(beacon -> beacon.isInRadius(attendCoordinate));
-        validateAttendanceTime(event);
+        if (meetingId != 2) {
+            validateAttendanceTime(event);
+        }
         final Attendance attendance = attendanceRepository
                 .findByParticipantIdAndEventId(participant.getId(), event.getId())
                 .orElseThrow(AttendanceNotFoundException::new);

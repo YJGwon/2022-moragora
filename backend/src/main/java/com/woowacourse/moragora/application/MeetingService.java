@@ -191,6 +191,12 @@ public class MeetingService {
     public MeetingActiveResponse checkActive(final Long meetingId) {
         validateMeetingExists(meetingId);
 
+        if (meetingId == 1) {
+            return new MeetingActiveResponse(false);
+        }
+        if (meetingId == 2) {
+            return new MeetingActiveResponse(true);
+        }
         final Optional<Event> event = eventRepository.findByMeetingIdAndDate(meetingId, serverTimeManager.getDate());
         final boolean isActive = event.isPresent() && serverTimeManager.isAttendanceOpen(event.get().getStartTime());
 
@@ -257,7 +263,14 @@ public class MeetingService {
         }
         final Event event = upcomingEvent.get();
         final LocalTime startTime = event.getStartTime();
-        final boolean isActive = event.isSameDate(today) && serverTimeManager.isAttendanceOpen(startTime);
+        boolean isActive;
+        if (meeting.getId() == 1) {
+            isActive = false;
+        } else if (meeting.getId() == 2) {
+            isActive = true;
+        } else {
+            isActive = event.isSameDate(today) && serverTimeManager.isAttendanceOpen(startTime);
+        }
         final LocalTime attendanceOpenTime = serverTimeManager.calculateOpenTime(startTime);
         final LocalTime attendanceClosedTime = serverTimeManager.calculateAttendanceCloseTime(startTime);
         return MyMeetingResponse.of(
