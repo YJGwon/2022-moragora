@@ -119,19 +119,20 @@ public class MeetingService {
 
     @Transactional
     public void assignMaster(final Long meetingId, final MasterRequest request, final Long loginId) {
-        final Long assignedUserId = request.getUserId();
-        validateMeetingExists(meetingId);
-        validateUserExists(assignedUserId);
-        validateAssignee(loginId, assignedUserId);
-
-        final Participant assignedParticipant = participantRepository
-                .findByMeetingIdAndUserId(meetingId, assignedUserId)
-                .orElseThrow(ParticipantNotFoundException::new);
-        final Participant masterParticipant = participantRepository.findByMeetingIdAndUserId(meetingId, loginId)
-                .orElseThrow(ParticipantNotFoundException::new);
-
-        assignedParticipant.updateIsMaster(true);
-        masterParticipant.updateIsMaster(false);
+        throw new ClientRuntimeException("데모 페이지에서는 사용할 수 없는 기능입니다.", HttpStatus.BAD_REQUEST);
+        // final Long assignedUserId = request.getUserId();
+        // validateMeetingExists(meetingId);
+        // validateUserExists(assignedUserId);
+        // validateAssignee(loginId, assignedUserId);
+        //
+        // final Participant assignedParticipant = participantRepository
+        //         .findByMeetingIdAndUserId(meetingId, assignedUserId)
+        //         .orElseThrow(ParticipantNotFoundException::new);
+        // final Participant masterParticipant = participantRepository.findByMeetingIdAndUserId(meetingId, loginId)
+        //         .orElseThrow(ParticipantNotFoundException::new);
+        //
+        // assignedParticipant.updateIsMaster(true);
+        // masterParticipant.updateIsMaster(false);
     }
 
     @Transactional
