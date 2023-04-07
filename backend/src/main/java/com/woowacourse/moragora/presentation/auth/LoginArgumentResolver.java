@@ -27,8 +27,6 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(final MethodParameter parameter, final ModelAndViewContainer mavContainer,
                                   final NativeWebRequest webRequest, final WebDataBinderFactory binderFactory) {
-        final HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-        final String token = AuthorizationExtractor.extract(request);
-        return Long.valueOf(jwtTokenProvider.getPayload(token));
+        return 1L;
     }
 }

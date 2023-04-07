@@ -36,13 +36,6 @@ public class AuthWebConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(final InterceptorRegistry registry) {
-        interceptors.forEach(interceptor -> registry.addInterceptor(interceptor)
-                .excludePathPatterns("/docs/**")
-                .addPathPatterns("/**"));
-    }
-
-    @Override
     public void addArgumentResolvers(final List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.addAll(this.resolvers);
     }
