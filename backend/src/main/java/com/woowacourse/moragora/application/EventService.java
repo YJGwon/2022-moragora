@@ -47,6 +47,7 @@ public class EventService {
 
     @Transactional
     public void save(final EventsRequest request, final Long meetingId) {
+        validateSampleMeeting(meetingId);
         final Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(MeetingNotFoundException::new);
         final List<Event> requestEvents = request.toEntities(meeting);
@@ -89,6 +90,7 @@ public class EventService {
 
     @Transactional
     public void cancel(final EventCancelRequest request, final Long meetingId) {
+        validateSampleMeeting(meetingId);
         meetingRepository.findById(meetingId)
                 .orElseThrow(MeetingNotFoundException::new);
         final List<LocalDate> dates = request.getDates();
@@ -176,5 +178,14 @@ public class EventService {
                 throw new ClientRuntimeException("과거의 일정을 생성할 수 없습니다.", HttpStatus.BAD_REQUEST);
             }
         });
+    }
+
+    private void validateSampleMeeting(final Long meetingId) {
+        if (meetingId == 1L || meetingId == 2L) {
+            throw new ClientRuntimeException(
+                "샘플 모임의 일정은 변경할 수 없습니다",
+                HttpStatus.BAD_REQUEST
+            );
+        }
     }
 }
