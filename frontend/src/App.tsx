@@ -35,6 +35,10 @@ const App = () => {
         },
       } = error;
 
+      if (error.response.data?.message) {
+        alert(error.response.data.message);
+      }
+
       if (status !== 401) {
         return Promise.reject(error);
       }

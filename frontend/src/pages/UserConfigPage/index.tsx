@@ -20,7 +20,6 @@ const UserConfigPage = () => {
     },
     onError: (e) => {
       setNickname(userState.user?.nickname ?? 'unknown');
-      alert(e);
     },
     onSuccess: () => {
       userState.getLoginUserData();

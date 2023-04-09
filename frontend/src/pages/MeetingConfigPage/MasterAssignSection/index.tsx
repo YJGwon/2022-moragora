@@ -32,9 +32,6 @@ const MasterAssignSection = () => {
         meetingQuery.refetch();
         alert('마스터 권한을 넘겼습니다.');
       },
-      onError: (e) => {
-        alert(e.message);
-      },
     }
   );
 

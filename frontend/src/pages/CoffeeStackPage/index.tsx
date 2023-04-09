@@ -33,9 +33,6 @@ const CoffeeStackPage = () => {
       alert('커피 비우기에 성공했습니다.');
       meetingQuery.refetch();
     },
-    onError: () => {
-      alert('커피 비우기를 실패했습니다.');
-    },
     onSettled: () => {
       setIsModalOpened(false);
     },

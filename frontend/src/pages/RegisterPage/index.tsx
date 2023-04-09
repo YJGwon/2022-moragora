@@ -23,31 +23,11 @@ const RegisterPage = () => {
       setExpiredTimestamp(expiredTime);
       setIsModalOpened(true);
     },
-    onError: ({ message }) => {
-      const status = message.split(': ')[0];
-
-      switch (status) {
-        case '409': {
-          alert('이미 존재하는 이메일 입니다.');
-          break;
-        }
-        case '500': {
-          alert('이메일 발송에 실패했습니다.');
-          break;
-        }
-        default: {
-          alert('이메일 인증하기를 실패했습니다.');
-        }
-      }
-    },
   });
 
   const registerMutation = useMutation(submitRegisterApi, {
     onSuccess: ({ data: { accessToken } }) => {
       userState?.setAccessToken(accessToken);
-    },
-    onError: () => {
-      alert('회원가입을 실패했습니다.');
     },
   });
 
