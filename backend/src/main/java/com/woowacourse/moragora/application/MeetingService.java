@@ -137,6 +137,9 @@ public class MeetingService {
 
     @Transactional
     public void updateName(final MeetingUpdateRequest request, final Long meetingId) {
+        if (meetingId == 1L || meetingId == 2L) {
+            throw new ClientRuntimeException("샘플 모임은 수정할 수 없습니다.", HttpStatus.BAD_REQUEST);
+        }
         final Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(MeetingNotFoundException::new);
         meeting.updateName(request.getName());
@@ -157,6 +160,9 @@ public class MeetingService {
 
     @Transactional
     public void deleteMeeting(final Long meetingId) {
+        if (meetingId == 1L || meetingId == 2L) {
+            throw new ClientRuntimeException("샘플 모임은 수정할 수 없습니다.", HttpStatus.BAD_REQUEST);
+        }
         final Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(MeetingNotFoundException::new);
 
