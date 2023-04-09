@@ -6,6 +6,7 @@ import com.woowacourse.moragora.dto.request.meeting.BeaconsRequest;
 import com.woowacourse.moragora.dto.request.meeting.MasterRequest;
 import com.woowacourse.moragora.dto.request.meeting.MeetingRequest;
 import com.woowacourse.moragora.dto.request.meeting.MeetingUpdateRequest;
+import com.woowacourse.moragora.dto.response.ErrorResponse;
 import com.woowacourse.moragora.dto.response.meeting.MeetingActiveResponse;
 import com.woowacourse.moragora.dto.response.meeting.MeetingResponse;
 import com.woowacourse.moragora.dto.response.meeting.MyMeetingsResponse;
@@ -56,11 +57,11 @@ public class MeetingController {
 
     @MasterAuthorization
     @PutMapping("/{meetingId}/master")
-    public ResponseEntity<Void> passMaster(@PathVariable final Long meetingId,
+    public ResponseEntity<ErrorResponse> passMaster(@PathVariable final Long meetingId,
                                            @RequestBody final MasterRequest masterRequest,
                                            @AuthenticationPrincipal final Long loginId) {
-        meetingService.assignMaster(meetingId, masterRequest, loginId);
-        return ResponseEntity.noContent().build();
+        // meetingService.assignMaster(meetingId, masterRequest, loginId);
+        return ResponseEntity.badRequest().body(new ErrorResponse("데모 페이지에서는 사용할 수 없는 기능입니다."));
     }
 
     @MasterAuthorization
