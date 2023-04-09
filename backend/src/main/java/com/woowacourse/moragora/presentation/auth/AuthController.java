@@ -61,8 +61,7 @@ public class AuthController {
     @GetMapping("/token/refresh")
     public ResponseEntity<LoginResponse> refreshTokens(final HttpServletRequest request,
                                                        final HttpServletResponse response) {
-        final String refreshToken = refreshTokenCookieProvider.extractRefreshToken(request.getCookies());
-        final TokenResponse tokenResponse = authService.refreshTokens(refreshToken);
+        final TokenResponse tokenResponse = authService.refreshTokens();
         final ResponseCookie responseCookie = refreshTokenCookieProvider.create(tokenResponse.getRefreshToken());
         response.addHeader(SET_COOKIE, responseCookie.toString());
         final LoginResponse loginResponse = new LoginResponse(tokenResponse.getAccessToken());

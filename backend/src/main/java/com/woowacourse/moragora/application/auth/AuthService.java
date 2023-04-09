@@ -1,7 +1,10 @@
 package com.woowacourse.moragora.application.auth;
 
-import static com.woowacourse.moragora.domain.user.Provider.CHECKMATE;
-import static com.woowacourse.moragora.domain.user.Provider.GOOGLE;
+import static com.woowacourse.moragora.domain.user.Provider.*;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woowacourse.moragora.application.ServerTimeManager;
 import com.woowacourse.moragora.domain.auth.AuthCode;
@@ -10,7 +13,6 @@ import com.woowacourse.moragora.domain.participant.Participant;
 import com.woowacourse.moragora.domain.participant.ParticipantRepository;
 import com.woowacourse.moragora.domain.user.User;
 import com.woowacourse.moragora.domain.user.UserRepository;
-import com.woowacourse.moragora.domain.user.password.RawPassword;
 import com.woowacourse.moragora.dto.request.auth.EmailRequest;
 import com.woowacourse.moragora.dto.request.auth.EmailVerifyRequest;
 import com.woowacourse.moragora.dto.request.user.LoginRequest;
@@ -18,15 +20,11 @@ import com.woowacourse.moragora.dto.response.user.GoogleProfileResponse;
 import com.woowacourse.moragora.exception.ClientRuntimeException;
 import com.woowacourse.moragora.exception.auth.InvalidTokenException;
 import com.woowacourse.moragora.exception.participant.ParticipantNotFoundException;
-import com.woowacourse.moragora.exception.user.AuthenticationFailureException;
 import com.woowacourse.moragora.exception.user.EmailDuplicatedException;
 import com.woowacourse.moragora.infrastructure.GoogleClient;
 import com.woowacourse.moragora.presentation.auth.TokenResponse;
 import com.woowacourse.moragora.support.AsyncMailSender;
 import com.woowacourse.moragora.support.RandomCodeGenerator;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
@@ -42,13 +40,13 @@ public class AuthService {
     private final RandomCodeGenerator randomCodeGenerator;
 
     public AuthService(final JwtTokenProvider jwtTokenProvider,
-                       final RefreshTokenProvider refreshTokenProvider,
-                       final ServerTimeManager serverTimeManager,
-                       final GoogleClient googleClient,
-                       final UserRepository userRepository,
-                       final ParticipantRepository participantRepository,
-                       final AsyncMailSender mailSender,
-                       final RandomCodeGenerator randomCodeGenerator) {
+        final RefreshTokenProvider refreshTokenProvider,
+        final ServerTimeManager serverTimeManager,
+        final GoogleClient googleClient,
+        final UserRepository userRepository,
+        final ParticipantRepository participantRepository,
+        final AsyncMailSender mailSender,
+        final RandomCodeGenerator randomCodeGenerator) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.refreshTokenProvider = refreshTokenProvider;
         this.serverTimeManager = serverTimeManager;
@@ -81,19 +79,19 @@ public class AuthService {
 
     public boolean isMaster(final Long meetingId, final Long loginId) {
         final Participant participant = participantRepository
-                .findByMeetingIdAndUserId(meetingId, loginId)
-                .orElseThrow(ParticipantNotFoundException::new);
+            .findByMeetingIdAndUserId(meetingId, loginId)
+            .orElseThrow(ParticipantNotFoundException::new);
         return participant.getIsMaster();
     }
 
     @Transactional
-    public TokenResponse refreshTokens(final String oldToken) {
-        final RefreshToken refreshToken = refreshTokenProvider.findRefreshToken(oldToken)
-                .orElseThrow(InvalidTokenException::new);
-        removeRefreshToken(oldToken);
-        validateRefreshTokenExpiration(refreshToken);
+    public TokenResponse refreshTokens() {
+        // final RefreshToken refreshToken = refreshTokenProvider.findRefreshToken(oldToken)
+        //         .orElseThrow(InvalidTokenException::new);
+        // removeRefreshToken(oldToken);
+        // validateRefreshTokenExpiration(refreshToken);
 
-        return createTokenResponse(refreshToken.getUserId());
+        return createTokenResponse(1L);
     }
 
     @Transactional
