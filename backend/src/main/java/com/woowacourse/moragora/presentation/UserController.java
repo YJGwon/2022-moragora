@@ -7,6 +7,7 @@ import com.woowacourse.moragora.dto.request.user.NicknameRequest;
 import com.woowacourse.moragora.dto.request.user.PasswordRequest;
 import com.woowacourse.moragora.dto.request.user.UserDeleteRequest;
 import com.woowacourse.moragora.dto.request.user.UserRequest;
+import com.woowacourse.moragora.dto.response.ErrorResponse;
 import com.woowacourse.moragora.dto.response.user.UserResponse;
 import com.woowacourse.moragora.dto.response.user.UsersResponse;
 import com.woowacourse.moragora.presentation.auth.Authentication;
@@ -59,24 +60,21 @@ public class UserController {
 
     @PutMapping("/me/nickname")
     @Authentication
-    public ResponseEntity<Void> changeMyNickname(@RequestBody @Valid final NicknameRequest nicknameRequest,
+    public ResponseEntity<ErrorResponse> changeMyNickname(@RequestBody @Valid final NicknameRequest nicknameRequest,
                                                  @AuthenticationPrincipal final Long id) {
-        userService.updateNickname(nicknameRequest, id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.badRequest().body(new ErrorResponse("데모 페이지에서는 사용할 수 없는 기능입니다."));
     }
 
     @PutMapping("/me/password")
     @Authentication
-    public ResponseEntity<Void> changeMyPassword(@RequestBody @Valid final PasswordRequest passwordRequest,
+    public ResponseEntity<ErrorResponse> changeMyPassword(@RequestBody @Valid final PasswordRequest passwordRequest,
                                                  @AuthenticationPrincipal final Long id) {
-        userService.updatePassword(passwordRequest, id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.badRequest().body(new ErrorResponse("데모 페이지에서는 사용할 수 없는 기능입니다."));
     }
 
     @DeleteMapping("/me")
-    public ResponseEntity<Void> deleteMe(@RequestBody @Valid final UserDeleteRequest userDeleteRequest,
+    public ResponseEntity<ErrorResponse> deleteMe(@RequestBody @Valid final UserDeleteRequest userDeleteRequest,
                                          @AuthenticationPrincipal final Long id) {
-        userService.delete(userDeleteRequest, id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.badRequest().body(new ErrorResponse("데모 페이지에서는 사용할 수 없는 기능입니다."));
     }
 }
