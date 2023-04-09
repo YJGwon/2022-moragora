@@ -50,9 +50,6 @@ const MeetingCreatePage = () => {
       alert('모임 생성을 완료했습니다.');
       navigate(`/meeting/${meetingIdRef.current}`);
     },
-    onError: () => {
-      alert('비콘 등록에 실패했습니다.');
-    },
   });
 
   const meetingCreateMutation = useMutation(createMeetingApi, {
@@ -67,9 +64,6 @@ const MeetingCreatePage = () => {
           address: beacon.address.address_name,
         })),
       });
-    },
-    onError: () => {
-      alert('모임 생성을 실패했습니다.');
     },
   });
 

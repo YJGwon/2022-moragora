@@ -53,18 +53,12 @@ const CalendarPage = () => {
     onSuccess: ({ data: { events: queriedEvents } }) => {
       setSavedEvents(queriedEvents);
     },
-    onError: (error) => {
-      alert(error.message);
-    },
   });
 
   const createEventsMutation = useMutation(createEventsApi(meetingId), {
     onSuccess: () => {
       eventsQuery.refetch();
       alert('일정을 생성했습니다.');
-    },
-    onError: (error) => {
-      alert(error.message);
     },
   });
 
@@ -75,7 +69,6 @@ const CalendarPage = () => {
     },
     onError: (error) => {
       eventsQuery.refetch();
-      alert(error.message);
     },
   });
 

@@ -28,9 +28,6 @@ const EmailConfirmModal: React.FC<
       alert('인증을 완료했습니다.');
       onSuccess();
     },
-    onError: () => {
-      alert('인증을 실패했습니다.');
-    },
   });
 
   const handleReSendClick = () => {

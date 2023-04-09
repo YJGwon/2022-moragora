@@ -16,9 +16,6 @@ const UnregisterPage = () => {
       userState?.logout();
       alert('회원 탈퇴되었습니다.');
     },
-    onError: (e) => {
-      alert(e.message);
-    },
   });
   const { errors, onSubmit, register, isSubmitting } = useForm();
 

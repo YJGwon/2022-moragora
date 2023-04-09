@@ -19,11 +19,7 @@ const CoffeeStackModal = ({ onDismiss, onConfirm }: CoffeeStackModalProps) => {
     isLoading,
     isError,
     data: userCoffeeStatsResponse,
-  } = useQuery(['userCoffeeStats'], getUserCoffeeStatsApi(id), {
-    onError: () => {
-      alert('유저별 커피정보를 불러오는 중 에러가 발생했습니다.');
-    },
-  });
+  } = useQuery(['userCoffeeStats'], getUserCoffeeStatsApi(id));
 
   if (isLoading) {
     return (

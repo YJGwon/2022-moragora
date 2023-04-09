@@ -45,9 +45,6 @@ const MeetingConfigPage = () => {
         meetingQuery.refetch();
         alert('모임명이 수정되었습니다.');
       },
-      onError: (e) => {
-        alert(e.message);
-      },
     }
   );
   const meetingDeleteMutation = useMutation(deleteMeetingApi(meetingId), {
@@ -55,17 +52,11 @@ const MeetingConfigPage = () => {
       alert('모임이 삭제되었습니다.');
       navigate('/');
     },
-    onError: (e) => {
-      alert(e.message);
-    },
   });
   const meetingLeaveMutation = useMutation(leaveMeetingApi(meetingId), {
     onSuccess: () => {
       alert('모임을 나갔습니다.');
       navigate('/');
-    },
-    onError: (e) => {
-      alert(e.message);
     },
   });
 

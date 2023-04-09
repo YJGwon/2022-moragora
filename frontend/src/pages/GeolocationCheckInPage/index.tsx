@@ -36,9 +36,6 @@ const GeolocationCheckInPage = () => {
         setCurrentMeeting(activeMeeting);
       }
     },
-    onError: () => {
-      alert('모임 정보를 가져오는데 실패했습니다.');
-    },
   });
 
   const handleMeetingItemClick = (

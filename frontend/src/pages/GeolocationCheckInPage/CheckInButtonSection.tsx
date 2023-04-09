@@ -39,7 +39,6 @@ const CheckInButtonSection = ({
         refetchMeetingList();
       },
       onError: () => {
-        alert('출석을 실패했습니다.');
         refetchMeetingList();
       },
     }

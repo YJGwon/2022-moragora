@@ -14,9 +14,6 @@ const PasswordUpdatePage = () => {
     onSuccess: () => {
       alert('비밀번호가 변경되었습니다.');
     },
-    onError: (e) => {
-      alert(e);
-    },
   });
 
   const handlePasswordSubmitValid: React.FormEventHandler<HTMLFormElement> = ({
@@ -33,17 +30,11 @@ const PasswordUpdatePage = () => {
     passwordUpdateMutation.mutate(formDataObject);
   };
 
-  const handlePasswordSubmitError: React.FormEventHandler<
-    HTMLFormElement
-  > = () => {
-    alert('error');
-  };
-
   return (
     <S.Layout>
       <S.Form
         id="password-update-form"
-        {...onSubmit(handlePasswordSubmitValid, handlePasswordSubmitError)}
+        {...onSubmit(handlePasswordSubmitValid)}
       >
         <S.FieldBox>
           <S.Label>

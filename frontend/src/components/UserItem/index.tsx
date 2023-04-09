@@ -23,7 +23,6 @@ const UserItem: React.FC<UserItemProps> = ({ user, meetingId, disabled }) => {
     },
     onError: () => {
       setChecked((prev) => !prev);
-      alert('출석체크 중 오류가 발생했습니다.');
     },
   });
 
